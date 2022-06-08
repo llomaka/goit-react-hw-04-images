@@ -6,20 +6,17 @@ import {RemoveScroll} from 'react-remove-scroll';
 import styles from './ImageGallery.module.css';
 
 export default function ImageGallery({ images }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [largeImageURL, setLargeImageURL] = useState('');
-  const [tags, setTags] = useState('');
-
-  const showModal = ({ largeImageURL, tags }) => {
-    setIsModalOpen(true);
-    setLargeImageURL(largeImageURL);
-    setTags(tags);
-  };
+  const [largeImageURL, setLargeImageURL] = useState(null);
+  const [tags, setTags] = useState(null);
 
   const closeModal = () => {
-    setIsModalOpen(false);
-    setLargeImageURL('');
-    setTags('');
+    setLargeImageURL(null);
+    setTags(null);
+  };
+
+  const selectImage = (largeImageURL, tags) => {
+    setLargeImageURL(largeImageURL);
+    setTags(tags);
   };
 
   return (
@@ -29,17 +26,16 @@ export default function ImageGallery({ images }) {
           <li
             key={image.id}
             className={styles.gallery__item}
+            onClick={()=>selectImage(image.largeImageURL, image.tags)}
           >
             <ImageGalleryItem
               webformatURL={image.webformatURL}
-              largeImageURL={image.largeImageURL}
               tags={image.tags}
-              showModal={showModal}
             />
           </li>
         ))}
       </ul>
-      {isModalOpen && <RemoveScroll>
+      {largeImageURL && <RemoveScroll>
         <Modal
           largeImageURL={largeImageURL}
           tags={tags}

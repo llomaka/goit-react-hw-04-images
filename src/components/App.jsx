@@ -25,27 +25,26 @@ export default function App() {
   const bottomRef = useRef(null);
 
   useEffect(() => {
-    if (searchQuery) {
-      setStatus(Status.PENDING);
-      fetchPictures(searchQuery, page)
-        .then(data => {
-          if (data.totalHits === 0) {
-            toast.error(`${this.state.searchQuery} not found!`);
-            setStatus(Status.REJECTED);
-          }
-          else {
-            setStatus(Status.RESOLVED);
-            setImages(prevImages => [...prevImages, ...data.hits]);
-            setTotalHits(data.totalHits);
-          }
-        })
-        .catch(error => {
+    if (!searchQuery) return;
+    setStatus(Status.PENDING);
+    fetchPictures(searchQuery, page)
+      .then(data => {
+        if (data.totalHits === 0) {
+          toast.error(`${this.state.searchQuery} not found!`);
           setStatus(Status.REJECTED);
-          toast.error(error);
-        });
-      if (bottomRef.current && page > 1) {
-        bottomRef.current.scrollIntoView(false);
-      }
+        }
+        else {
+          setImages(prevImages => [...prevImages, ...data.hits]);
+          setTotalHits(data.totalHits);
+          setStatus(Status.RESOLVED);
+        }
+      })
+      .catch(error => {
+        setStatus(Status.REJECTED);
+        toast.error(error);
+      });
+    if (bottomRef.current && page > 1) {
+      bottomRef.current.scrollIntoView(false);
     }
   }, [searchQuery, page]);
 
