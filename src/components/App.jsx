@@ -40,8 +40,8 @@ export default function App() {
         }
       })
       .catch(error => {
-        setStatus(Status.REJECTED);
         toast.error(error);
+        setStatus(Status.REJECTED);
       });
     if (bottomRef.current && page > 1) {
       bottomRef.current.scrollIntoView(false);
