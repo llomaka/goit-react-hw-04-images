@@ -12,16 +12,16 @@ export default function Modal({ largeImageURL, tags, closeModal }) {
     };
   };
 
-  // const handleKeydown = event => {
-  //   if (event.code === 'Escape') {
-  //     closeModal();
-  //   };
-  // };
+  const handleKeydown = event => {
+    if (event.code === 'Escape') {
+      closeModal();
+    };
+  };
 
-  // useEffect(() => {
-  //   window.addEventListener('keydown', handleKeydown);
-  //   return ()=>window.removeEventListener('keydown', this.handleKeydown);
-  // }, []);
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeydown);
+    return ()=>window.removeEventListener('keydown', handleKeydown);
+  }, []);
 
   return createPortal(
     <div className={styles.backdrop} onClick={handleBackdropClick}>
