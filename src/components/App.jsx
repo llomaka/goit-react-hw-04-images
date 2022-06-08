@@ -30,7 +30,7 @@ export default function App() {
     fetchPictures(searchQuery, page)
       .then(data => {
         if (data.totalHits === 0) {
-          toast.error(`${this.state.searchQuery} not found!`);
+          toast.error(`${searchQuery} not found!`);
           setStatus(Status.REJECTED);
         }
         else {
@@ -53,6 +53,7 @@ export default function App() {
     setSearchQuery(query);
     setPage(1);
     setImages([]);
+    setTotalHits(null);
   };
 
   return (
