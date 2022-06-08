@@ -20,7 +20,7 @@ export default function Modal({ largeImageURL, tags, closeModal }) {
     };
     window.addEventListener('keydown', handleKeydown);
     return () => window.removeEventListener('keydown', handleKeydown);
-  });
+  }, [closeModal]);
 
   return createPortal(
     <div className={styles.backdrop} onClick={handleBackdropClick}>
