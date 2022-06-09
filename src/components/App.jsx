@@ -40,7 +40,7 @@ export default function App() {
         }
       })
       .catch(error => {
-        toast.error(error);
+        toast.error(error.message);
         setStatus(Status.REJECTED);
       });
     if (bottomRef.current && page > 1) {
