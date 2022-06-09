@@ -63,7 +63,7 @@ export default function App() {
       <Searchbar
         onSearchClick={onSearchClick}
       />
-      {images && (<ImageGallery images={images} />)}
+      {images.length > 0 && (<ImageGallery images={images} />)}
       {status === Status.PENDING && (<Loader />)}
       {status === Status.RESOLVED && totalPages > page && (<Button text='Load more' handleClick={() => setPage(prevPage => prevPage + 1)} />)}
       <ToastContainer ref={bottomRef} />
